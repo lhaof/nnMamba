@@ -19,10 +19,10 @@ Pretrain weights are available at https://drive.google.com/drive/folders/1wYHVSv
 
 ### If you find this project useful, please consider cite us at
 ```BibTex
-@inproceedings{gong2024nnmamba,
+@inproceedings{gong2025nnmamba,
     title={nnmamba: 3d biomedical image segmentation, classification and landmark detection with state space model},
-    author={Gong, Haifan and Kang, Luoyao and Wang, Yitao and Wan, Xiang and Li, Haofeng},
+    author={Gong, Haifan and Kang, Luoyao and Wang, Yitao and Wang, Yihan and Wan, Xiang and Wu, Xusheng and Li, Haofeng},
     booktitle={ISBI},
     year={2025}
 }
-'''
+```
