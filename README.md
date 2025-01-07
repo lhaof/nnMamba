@@ -1,4 +1,4 @@
-# nnMamba
+# nnMamba ISBI 2025
 nnMamba: 3D Biomedical Image Segmentation, Classification and Landmark Detection with State Space Model
 
 All code and data will be made available after the peer review process.
@@ -19,10 +19,10 @@ Pretrain weights are available at https://drive.google.com/drive/folders/1wYHVSv
 
 ### If you find this project useful, please consider cite us at
 ```BibTex
-@article{gong2024nnmamba,
-  title={nnmamba: 3d biomedical image segmentation, classification and landmark detection with state space model},
-  author={Gong, Haifan and Kang, Luoyao and Wang, Yitao and Wan, Xiang and Li, Haofeng},
-  journal={arXiv preprint arXiv:2402.03526},
-  year={2024}
+@inproceedings{gong2024nnmamba,
+    title={nnmamba: 3d biomedical image segmentation, classification and landmark detection with state space model},
+    author={Gong, Haifan and Kang, Luoyao and Wang, Yitao and Wan, Xiang and Li, Haofeng},
+    booktitle={ISBI},
+    year={2025}
 }
 '''
