@@ -12,14 +12,14 @@ Extensive experiments on seven datasets demonstrate that **nnMamba** outperforms
 
 The nnMamba framework is designed for 3D biomedical tasks, focusing on dense prediction and classification. Our approach addresses the challenge of long-range modeling by harnessing the lightweight and robust capabilities of State Space Models.
 
-![Details of the design](./figs/arch.jpg)
 
 ## Deployment
 For segmentation or landmark detection task, please refer to **nnMamba.py**; For classification task, please refer to **nnMamba4cls.py**. The detailed training pipelines are available at **nnunet** folder for segmentation and **classification** folder for ADNI classification.
 
+
 ## Methods
 **Architecture Overview**
-
+![Details of the design](./figs/arch.jpg)
 - **Dense Prediction (Segmentation and Landmark Detection):** Panels (a) and (b) illustrate the network structure.
 - **Classification:** Panel (b) shows the network structure.
 - **Detailed Blocks:** Panels (c), (d), and (e) provide specifics of the blocks used within the networks.
