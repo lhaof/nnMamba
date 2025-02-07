@@ -17,6 +17,9 @@ Illustrative diagrams of the nnMamba framework architectures. (a) Presents the n
 
 Pretrain weights are available at https://drive.google.com/drive/folders/1wYHVSvSU-wGJdU62WZ0B5rfv_bZ68bJl?usp=drive_link
 
+![Visualization results on segmentation](./figs/visualization.jpg)
+
+
 ### If you find this project useful, please consider cite us at
 ```BibTex
 @inproceedings{gong2025nnmamba,
