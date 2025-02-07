@@ -11,7 +11,7 @@ Extensive experiments on 6 datasets demonstrate nnMamba's superiority over state
 
 The nnMamba framework is designed for 3D biomedical tasks, focusing on dense prediction and classification. Our approach seeks to tackle the challenge of long-range modeling by leveraging the lightweight and robust long-range modeling capabilities of State Space Models.
 
-![Details of the network structure](./figs/pipeline.jpg)
+![Details of the design](./figs/pipeline.jpg)
 
 Illustrative diagrams of the nnMamba framework architectures. (a) Presents the network structure for segmentation and landmark detection tasks. (b) Depicts the architecture tailored for classification tasks. Detailed structures of the blocks utilized within our networks are shown in (c), (d), and (e).
 
