@@ -1,7 +1,5 @@
-from heapq import _heapify_max
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from mamba_ssm import Mamba
 
 
@@ -78,11 +76,11 @@ class MambaLayer(nn.Module):
         self.dim = dim
         self.nin = conv1x1(dim, dim)
         self.nin2 = conv1x1(dim, dim)
-        self.norm2 = nn.BatchNorm3d(dim) # LayerNorm
+        self.norm2 = nn.BatchNorm3d(dim)  # LayerNorm
         self.relu2 = nn.ReLU(inplace=True)
         self.relu3 = nn.ReLU(inplace=True)
 
-        self.norm = nn.BatchNorm3d(dim) # LayerNorm
+        self.norm = nn.BatchNorm3d(dim)  # LayerNorm
         self.relu = nn.ReLU(inplace=True)
         self.mamba = Mamba(
             d_model=dim,  # Model dimension d_model
@@ -111,31 +109,7 @@ class MambaLayer(nn.Module):
         return out
 
 
-class MambaSeq(nn.Module):
-    def __init__(self, dim, d_state=16, d_conv=4, expand=2):
-        super().__init__()
-        self.dim = dim
-        self.relu = nn.ReLU(inplace=True)
-        self.mamba = Mamba(
-            d_model=dim,  # Model dimension d_model
-            d_state=d_state,  # SSM state expansion factor
-            d_conv=d_conv,  # Local convolution width
-            expand=expand  # Block expansion factor
-        )
-
-    def forward(self, x):
-        B, C = x.shape[:2]
-        x = self.relu(x)
-        assert C == self.dim
-        n_tokens = x.shape[2:].numel()
-        img_dims = x.shape[2:]
-        x_flat = x.reshape(B, C, n_tokens).transpose(-1, -2)
-        x_mamba = self.mamba(x_flat)
-        out = x_mamba.transpose(-1, -2).reshape(B, C, *img_dims)
-        return out
-
 class DoubleConv(nn.Module):
-
     def __init__(self, in_ch, out_ch, stride=1, kernel_size=3):
         super(DoubleConv, self).__init__()
         self.conv = nn.Sequential(
@@ -176,17 +150,9 @@ class nnMambaEncoder(nn.Module):
         self.layer2 = make_res_layer(channels * 2, channels * 4, blocks, stride=2)
         self.layer3 = make_res_layer(channels * 4, channels * 8, blocks, stride=2)
 
-        self.pooling =  nn.AdaptiveAvgPool3d((1, 1, 1))
-
-        self.mamba_seq = MambaSeq(
-            dim=channels*2,  # Model dimension d_model
-            d_state=8,  # SSM state expansion factor
-            d_conv=2,  # Local convolution width
-            expand=2  # Block expansion factor
-        )
-        
-        self.mlp = nn.Sequential(nn.Linear(channels*14, channels), nn.ReLU(), nn.Dropout(0.5), nn.Linear(channels, number_classes))
-
+        self.pooling = nn.AdaptiveAvgPool3d((1, 1, 1))
+        self.mlp = nn.Sequential(nn.Linear(channels * 14, channels), nn.ReLU(), nn.Dropout(0.5),
+                                 nn.Linear(channels, number_classes))
 
     def forward(self, x):
         c1 = self.in_conv(x)
@@ -198,18 +164,11 @@ class nnMambaEncoder(nn.Module):
         pooled_c3_s = self.pooling(c3)
         pooled_c4_s = self.pooling(c4)
 
-        h_feature = torch.cat((pooled_c2_s.reshape(c1.shape[0], c1.shape[1]*2, 1), pooled_c3_s.reshape(c1.shape[0], c1.shape[1]*2, 2), pooled_c4_s.reshape(c1.shape[0], c1.shape[1]*2, 4)), dim=2)
-
-        h_feature_att = self.mamba_seq(h_feature) + h_feature
-        h_feature = h_feature_att.reshape(c1.shape[0], -1)
+        h_feature = torch.cat((pooled_c2_s.reshape(c1.shape[0], -1),
+                               pooled_c3_s.reshape(c1.shape[0], -1),
+                               pooled_c4_s.reshape(c1.shape[0], -1)), dim=1)
 
         return self.mlp(h_feature)
-        print(h_feature.shape)
-        c5 = self.pooling(c4).view(c4.shape[0], -1)
-        c5 = self.mlp(c5)
-        # c5 = self.sig(c5)
-        return c5
-
 
 if __name__ == "__main__":
     model = nnMambaEncoder().cuda()
