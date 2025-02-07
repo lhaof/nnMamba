@@ -109,10 +109,11 @@ Checkpoints are available at:
 ## Citation
 
 If you find this project useful, please consider citing us:
-
+```
 @inproceedings{gong2025nnmamba,  
   title={nnmamba: 3D biomedical image segmentation, classification and landmark detection with state space model},  
   author={Gong, Haifan and Kang, Luoyao and Wang, Yitao and Wang, Yihan and Wan, Xiang and Wu, Xusheng and Li, Haofeng},  
   booktitle={ISBI},  
   year={2025}  
 }
+```
