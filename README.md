@@ -16,6 +16,8 @@ The nnMamba framework is designed for 3D biomedical tasks, focusing on dense pre
 ## Deployment
 For segmentation or landmark detection task, please refer to **nnMamba.py**; For classification task, please refer to **nnMamba4cls.py**. The detailed training pipelines are available at **nnunet** folder for segmentation and **classification** folder for ADNI classification.
 
+Checkpoints are available at:  
+<https://drive.google.com/drive/folders/1wYHVSvSU-wGJdU62WZ0B5rfv_bZ68bJl?usp=drive_link>
 
 ## Methods
 **Architecture Overview**
@@ -34,9 +36,6 @@ For segmentation or landmark detection task, please refer to **nnMamba.py**; For
    - **x_flip** ← flip(x_flat, dims = d)
    - **x_mamba** ← x_mamba + flip(SiamSSM(x_flip), dims = d)
 5. **x_mamba** ← (1/4) × x_mamba
-
-Checkpoints are available at:  
-<https://drive.google.com/drive/folders/1wYHVSvSU-wGJdU62WZ0B5rfv_bZ68bJl?usp=drive_link>
 
 ![Visualization results on segmentation](./figs/vis.jpg)
 
